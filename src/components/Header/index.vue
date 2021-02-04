@@ -1,14 +1,14 @@
 <template>
   <div class="header">
     <div class="header-portrait">
-      <span>Blog</span>
+      <span>Blog{{isAlive}}</span>
       <img src="@/assets/portrait.svg" alt="LOGO" />
     </div>
     <div class="header-list">
-      <router-link to="">首页</router-link>
-      <router-link to="">文章</router-link>
-      <router-link to="">笔记</router-link>
-      <router-link to="">关于</router-link>
+      <router-link to="/">首页</router-link>
+      <router-link to="/artlice">文章</router-link>
+      <router-link to="/note">笔记</router-link>
+      <router-link to="/about">关于</router-link>
     </div>
     <div class="header-search">
       <i class="iconfont icon-sousuo"></i>
@@ -23,15 +23,29 @@
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs,toRaw, computed} from "vue";
+import {useRoute} from "vue-router"
 export default {
   name: "Header",
   setup() {
     const data = reactive({
-      head: ""
+      head: "",
+      isAlive: 0,
     });
+    const route = useRoute()
+  console.log(toRaw(route))
 
-    return { ...toRefs(data) };
+
+    const plusOne = computed({
+      get: () => data.isAlive + 1,
+      set: val => {
+        console.log(val);
+        data.isAlive = val -1
+      }
+    })
+    // plusOne.value = 2
+
+    return { ...toRefs(data),plusOne };
   }
 };
 </script>
@@ -45,6 +59,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
+
   &-portrait {
     display: flex;
     img {
@@ -86,10 +101,11 @@ export default {
     }
 
     input {
-      padding-left: 5px;
+      padding-left: 10px;
       width: 150px;
       font-size: 18px;
       border: none;
+      outline:none;
     }
 
     input:focus {
@@ -100,11 +116,12 @@ export default {
 
 @media (max-width: 800px) {
   .header {
-    .search {
+    &-search {
       cursor: pointer;
       width: 0;
       border-color: transparent;
       position: relative;
+
     }
   }
 }
