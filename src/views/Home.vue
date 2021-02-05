@@ -1,22 +1,38 @@
 <template>
   <div class="home">
-    {{ agent }}
+    <audio
+      controls="controls"
+      hidden
+      :src="require('@/assets/audio/13716.wav')"
+      ref="audio"
+    ></audio>
+    <span @click="ok">点击</span>
   </div>
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { onMounted, reactive, ref, toRefs } from "vue";
 export default {
   name: "Home",
   setup() {
-    const agent = ref("我是首页");
-
-    onMounted(() => {
-      console.log('开始生命周期');
+    const audio = ref(null);
+    let data = reactive({
+      currentTime: 0,
+      ok: () => {
+        setTimeout(() => {
+          data.oks();
+        }, 1000);
+      },
+      oks: () => {
+        audio.value.currentTime = 0; //从头开始播放提示音
+        audio.value.play(); //播放
+      }
     });
+    onMounted(() => {});
 
     return {
-      agent
+      ...toRefs(data),
+      audio
     };
   }
 };

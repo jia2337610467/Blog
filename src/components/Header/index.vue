@@ -1,16 +1,27 @@
 <template>
-  <div class="header">
-    <div class="header-portrait">
-      <span>Blog{{isAlive}}</span>
+  <header class="header">
+    <div class="portrait">
+      <span>YUE Blog</span>
       <img src="@/assets/portrait.svg" alt="LOGO" />
     </div>
-    <div class="header-list">
-      <router-link to="/">首页</router-link>
-      <router-link to="/artlice">文章</router-link>
-      <router-link to="/note">笔记</router-link>
-      <router-link to="/about">关于</router-link>
-    </div>
-    <div class="header-search">
+    <nav>
+      <router-link to="/" :class="[plusOne === 'Home' ? 'check' : '']">
+        首页
+      </router-link>
+      <router-link
+        to="/artlice"
+        :class="[plusOne === 'Artlice' ? 'check' : '']"
+      >
+        文章
+      </router-link>
+      <router-link to="/note" :class="[plusOne === 'Note' ? 'check' : '']">
+        笔记
+      </router-link>
+      <router-link to="/about" :class="[plusOne === 'About' ? 'check' : '']">
+        关于
+      </router-link>
+    </nav>
+    <div class="search">
       <i class="iconfont icon-sousuo"></i>
       <input
         type="text"
@@ -19,48 +30,45 @@
         spellcheck="false"
       />
     </div>
-  </div>
+  </header>
 </template>
 
 <script>
-import { reactive, toRefs,toRaw, computed} from "vue";
-import {useRoute} from "vue-router"
+import { reactive, toRefs, toRaw, computed } from "vue";
+import { useRoute } from "vue-router";
 export default {
   name: "Header",
   setup() {
     const data = reactive({
-      head: "",
-      isAlive: 0,
+      head: ""
     });
-    const route = useRoute()
-  console.log(toRaw(route))
 
-
+    const route = useRoute();
     const plusOne = computed({
-      get: () => data.isAlive + 1,
-      set: val => {
-        console.log(val);
-        data.isAlive = val -1
-      }
-    })
-    // plusOne.value = 2
+      get: () => toRaw(route).name.value
+    });
 
-    return { ...toRefs(data),plusOne };
+    return { ...toRefs(data), plusOne };
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.header {
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
   width: 100%;
   height: 70px;
   background: #fff;
   border-bottom: 1px solid rgb(211, 211, 211);
+
   display: flex;
   align-items: center;
   justify-content: space-around;
 
-  &-portrait {
+  .portrait {
     display: flex;
     img {
       width: 60px;
@@ -71,7 +79,7 @@ export default {
       font-size: 20px;
     }
   }
-  &-list {
+  nav {
     width: 450px;
     display: flex;
     align-items: center;
@@ -84,8 +92,11 @@ export default {
         content: "";
       }
     }
+    .check {
+      color: chocolate;
+    }
   }
-  &-search {
+  .search {
     flex: 0 0 auto;
     vertical-align: top;
     display: inline-block;
@@ -102,10 +113,10 @@ export default {
 
     input {
       padding-left: 10px;
-      width: 150px;
       font-size: 18px;
+      max-width: 150px;
       border: none;
-      outline:none;
+      outline: none;
     }
 
     input:focus {
@@ -115,13 +126,12 @@ export default {
 }
 
 @media (max-width: 800px) {
-  .header {
-    &-search {
+  header {
+    .search {
       cursor: pointer;
       width: 0;
       border-color: transparent;
       position: relative;
-
     }
   }
 }
