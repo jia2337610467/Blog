@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="portrait">
-      <span>YUE Blog</span>
+      <!-- <span>YUE Blog</span> -->
       <img src="@/assets/portrait.svg" alt="LOGO" />
     </div>
     <nav>
@@ -20,16 +20,27 @@
       <router-link to="/about" :class="[plusOne === 'About' ? 'check' : '']">
         关于
       </router-link>
+      <div class="search">
+        <i class="iconfont icon-sousuo"></i>
+        <input
+          type="text"
+          aria-label="搜索"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="深入浅出Vue.js"
+          v-model="key"
+          @focus="focus"
+          @blur="blur"
+        />
+        <ul v-show="keywordList" class="keyword-list">
+          <li @mousedown="check('深入浅出Vue.js')">深入浅出Vue.js</li>
+          <li>深入浅出Vue.js</li>
+          <li>深入浅出Vue.js</li>
+          <li>深入浅出Vue.js</li>
+          <li>深入浅出Vue.js</li>
+        </ul>
+      </div>
     </nav>
-    <div class="search">
-      <i class="iconfont icon-sousuo"></i>
-      <input
-        type="text"
-        aria-label="搜索"
-        autocomplete="off"
-        spellcheck="false"
-      />
-    </div>
   </header>
 </template>
 
@@ -40,16 +51,31 @@ export default {
   name: "Header",
   setup() {
     const data = reactive({
-      head: ""
+      head: "",
+      key:null,
+      keywordList: false,
     });
+
+    const methoud = reactive({
+      focus:() => {
+        data.keywordList = true;
+      },
+      blur: () => {
+        data.keywordList = false;
+      },
+      check: (e) => {
+        // 防止使用click导致和blur事件冲突 使用mousedown（鼠标按下选中dom执行） 该方法优先级高于blur
+        data.key = e
+      }
+    })
 
     const route = useRoute();
     const plusOne = computed({
-      get: () => toRaw(route).name.value
+      get: () => toRaw(route).name.value,
     });
 
-    return { ...toRefs(data), plusOne };
-  }
+    return { ...toRefs(data),...toRefs(methoud), plusOne };
+  },
 };
 </script>
 
@@ -80,13 +106,13 @@ header {
     }
   }
   nav {
-    width: 450px;
+    flex: 0.5;
     display: flex;
     align-items: center;
     justify-content: space-between;
     a {
-      font-size: 20px;
-      font-weight: 600;
+      font-size: 18px;
+      font-weight: 500;
       font-family: "PingFang SC";
       &::after {
         content: "";
@@ -102,30 +128,49 @@ header {
     display: inline-block;
     position: relative;
     margin-right: 1px;
-    border: 1px solid #999;
-    padding: 5px 10px;
-    border-radius: 8px;
 
-    .search-box .iconfont {
+    .iconfont {
       z-index: 0;
       margin: auto;
+      position: absolute;
+      top: 5px;
+      left: 5px;
     }
 
     input {
-      padding-left: 10px;
-      font-size: 18px;
+      height: 30px;
+      padding-left: 25px;
+      font-size: 13px;
       max-width: 150px;
-      border: none;
-      outline: none;
+      border-radius: 5px;
+      border: 1px solid #e0e0e0;
     }
 
     input:focus {
-      border: none;
+      border-radius: none;
+      height: 30px;
+      outline-color: cadetblue;
+    }
+
+    .keyword-list{
+      position: absolute;
+      top: 33px;
+      left: 0;
+      width: 165px;
+      border: 2px solid cadetblue;
+      background-color: #fff;
+      border-top: none;
+      text-align: left;
+      padding-left: 10px;
+      li{
+        padding:7px 0;
+        border-bottom: .5px solid #f0eeee;
+      }
     }
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   header {
     .search {
       cursor: pointer;

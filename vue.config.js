@@ -6,9 +6,12 @@ module.exports = {
         changeOrigin: true, //允许跨域
         ws: true,
         pathRewrite: {
-          "^/api": ""
-        }
-      }
-    }
-  }
+          "^/api": "",
+        },
+      },
+    },
+  },
+  configureWebpack: (config) => {
+    config.entry.app = ["babel-polyfill", "./src/main.js"];
+  },
 };
