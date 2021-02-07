@@ -21,8 +21,11 @@
         关于
       </router-link>
       <div class="search">
-        <i class="iconfont icon-sousuo"></i>
+        <label for="search">
+          <i class="iconfont icon-sousuo"></i>
+        </label>
         <input
+          id="search"
           type="text"
           aria-label="搜索"
           autocomplete="off"
@@ -33,11 +36,9 @@
           @blur="blur"
         />
         <ul v-show="keywordList" class="keyword-list">
-          <li @mousedown="check('深入浅出Vue.js')">深入浅出Vue.js</li>
-          <li>深入浅出Vue.js</li>
-          <li>深入浅出Vue.js</li>
-          <li>深入浅出Vue.js</li>
-          <li>深入浅出Vue.js</li>
+          <li v-for="item in hot" :key="item" @mousedown="check(item)">
+            {{ item }}
+          </li>
         </ul>
       </div>
     </nav>
@@ -51,13 +52,13 @@ export default {
   name: "Header",
   setup() {
     const data = reactive({
-      head: "",
-      key:null,
+      hot: ["深入浅出vue.js", "Vue2", "Vue3", "ES6"],
+      key: null,
       keywordList: false,
     });
 
     const methoud = reactive({
-      focus:() => {
+      focus: () => {
         data.keywordList = true;
       },
       blur: () => {
@@ -65,16 +66,16 @@ export default {
       },
       check: (e) => {
         // 防止使用click导致和blur事件冲突 使用mousedown（鼠标按下选中dom执行） 该方法优先级高于blur
-        data.key = e
-      }
-    })
+        data.key = e;
+      },
+    });
 
     const route = useRoute();
     const plusOne = computed({
       get: () => toRaw(route).name.value,
     });
 
-    return { ...toRefs(data),...toRefs(methoud), plusOne };
+    return { ...toRefs(data), ...toRefs(methoud), plusOne };
   },
 };
 </script>
@@ -106,7 +107,7 @@ header {
     }
   }
   nav {
-    flex: 0.5;
+    flex: 0.4;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -152,9 +153,10 @@ header {
       outline-color: cadetblue;
     }
 
-    .keyword-list{
+    .keyword-list {
       position: absolute;
       top: 33px;
+        opacity: 0;
       left: 0;
       width: 165px;
       border: 2px solid cadetblue;
@@ -162,9 +164,30 @@ header {
       border-top: none;
       text-align: left;
       padding-left: 10px;
-      li{
-        padding:7px 0;
-        border-bottom: .5px solid #f0eeee;
+      animation: mymove 0.3s forwards;
+      animation-delay: 0.3s;
+      li {
+        cursor: pointer;
+        padding: 2px 0;
+      }
+    }
+    @keyframes mymove {
+      from {
+        transform: translateY(-10px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes mymove /*Safari and Chrome*/ {
+      from {
+        left: 0px;
+      }
+      to {
+        left: 200px;
       }
     }
   }
@@ -177,6 +200,11 @@ header {
       width: 0;
       border-color: transparent;
       position: relative;
+      input {
+        width: 0;
+        height: 0;
+        border: none;
+      }
     }
   }
 }
