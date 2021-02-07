@@ -5,12 +5,13 @@
         <svg-icon icon-class="loading" class="load-svg" />
       </div>
 
-      <div class="box" v-for="(item, index) in list" :key="index">
-        <div class="pictrue" v-show="item.img">
-          <img :src="item.img" alt="图片" />
+      <div class="box" v-for="(item, index) in list" :key="item.id + `${index}`">
+        <div class="pictrue" v-show="item.user.avatar">
+          <img :src="item.user.avatar" alt="图片" />
         </div>
         <div class="art">
           <h2>{{ item.title }}</h2>
+          <p>{{item.user.username}}</p>
           <p class="msg">{{ item.message }}</p>
           <div class="tag">
             <p v-for="items in item.tag" :key="items">{{ items }}</p>
@@ -28,6 +29,7 @@
 
 <script>
 import { onMounted, reactive, toRefs } from "vue";
+import { artList } from "@/network/api/artlice";
 export default {
   setup() {
     let data = reactive({
@@ -36,22 +38,17 @@ export default {
 
     let methoud = reactive({
       getList: () => {
-        setTimeout(() => {
-          for (let i = 0; i < 40; i++) {
-            const id = data.list.length + 1;
-            data.list.push({
-              id,
-              title: `标题${id}`,
-              tag: ["vue", "js"],
-              img:
-                id % 2 == 1
-                  ? "https://images.pexels.com/photos/5902130/pexels-photo-5902130.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                  : "https://images.pexels.com/photos/4596636/pexels-photo-4596636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-              message:
-                "我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息",
-            });
+        artList({
+          category: "frontend",
+          limit: 30,
+          offset: 0,
+          order: "heat",
+        }).then((res) => {
+          if (res) {
+            console.log(res.data);
+            data.list = res.data;
           }
-        }, 500);
+        });
       },
     });
 

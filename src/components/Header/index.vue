@@ -2,7 +2,7 @@
   <header class="header">
     <div class="portrait">
       <!-- <span>YUE Blog</span> -->
-      <img src="assets/portrait.svg" alt="LOGO" />
+      <img src="@/assets/portrait.svg" alt="LOGO" />
     </div>
     <nav>
       <router-link to="/" :class="[plusOne === 'Home' ? 'check' : '']">
