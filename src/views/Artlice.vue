@@ -1,6 +1,10 @@
 <template>
   <main>
     <section>
+      <div v-if="list.length === 0" class="load">
+        <svg-icon icon-class="loading" class="load-svg" />
+      </div>
+
       <div class="box" v-for="(item, index) in list" :key="index">
         <div class="pictrue" v-show="item.img">
           <img :src="item.img" alt="图片" />
@@ -14,6 +18,7 @@
         </div>
       </div>
     </section>
+
     <aside>
       <p class="main-title">目录</p>
       <p class="main-title">标签</p>
@@ -38,8 +43,12 @@ export default {
               id,
               title: `标题${id}`,
               tag: ["vue", "js"],
-              img: id%2 == 1?"https://images.pexels.com/photos/5902130/pexels-photo-5902130.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500":"https://images.pexels.com/photos/4596636/pexels-photo-4596636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-              message: "我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息",
+              img:
+                id % 2 == 1
+                  ? "https://images.pexels.com/photos/5902130/pexels-photo-5902130.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                  : "https://images.pexels.com/photos/4596636/pexels-photo-4596636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+              message:
+                "我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息我是详细信息",
             });
           }
         }, 500);
@@ -66,37 +75,43 @@ main {
   flex-wrap: wrap;
   justify-content: space-between;
 
-  .main-title {
-    text-align: center;
-    margin: 10px 0;
-  }
   section {
     flex: 0.7;
+    .load {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &-svg {
+        width: 3em;
+        height: 3em;
+      }
+    }
     .box {
       box-shadow: 0px 0px 8px 1px #9865;
-      padding:5px 10px;
+      padding: 5px 10px;
       margin-top: 30px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      .pictrue{
+      .pictrue {
         flex-shrink: 0;
         width: 180px;
         margin: -20px 0 0 -20px;
-        height: auto; 
-        img{
+        height: auto;
+        img {
           width: 100%;
           height: 100%;
           border-radius: 10px;
         }
       }
       .art {
-        flex: .97;
-        p{
-           margin: 5px;
+        flex: 0.97;
+        p {
+          margin: 5px;
         }
-        .msg{
+        .msg {
           font-size: 15px;
           text-indent: 2em;
         }
@@ -114,6 +129,10 @@ main {
   }
   aside {
     flex: 0.25;
+    .main-title {
+      text-align: center;
+      margin: 10px 0;
+    }
   }
 }
 </style>
