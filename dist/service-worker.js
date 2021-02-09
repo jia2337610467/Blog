@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.89399f06a0517adb9c3cfde6f441d785.js"
+  "precache-manifest.68a6fba5d32db2042f541a65bb11fcfe.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "YUEblog"});
