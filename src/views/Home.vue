@@ -18,11 +18,8 @@
       </video>
     </div>
     <section class="hero-content">
-      <h1>欢迎来的我的BLOG</h1>
+      <h1>欢迎来到YUE的BLOG</h1>
     </section>
-  </div>
-  <div class="home">
-
   </div>
 
   <div class="home">
@@ -32,7 +29,6 @@
       :src="require('@/assets/audio/13716.wav')"
       ref="audio"
     ></audio>
-    <!-- <span @click="ok">点击</span> -->
   </div>
 </template>
 
@@ -103,12 +99,12 @@ export default {
     max-width: 650px;
     width: 100%;
     z-index: 3;
-    h1{
+    h1 {
       font-size: 45px;
     }
   }
 }
-.home{
+.home {
   height: 200px;
 }
 </style>

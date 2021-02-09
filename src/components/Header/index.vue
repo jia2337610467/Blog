@@ -1,8 +1,8 @@
 <template>
-  <header :class="['header',plusOne === 'Home'?'home':'']">
+  <header :class="['header', plusOne === 'Home' && home ? 'home' : '']">
     <div class="portrait">
       <!-- <span>YUE Blog</span> -->
-      <img src="@/assets/portrait.svg" alt="LOGO" />
+      <img src="@/assets/logo2.png" alt="LOGO" />
     </div>
     <nav class="header-nav">
       <router-link to="/" :class="[plusOne === 'Home' ? 'check' : '']">
@@ -31,12 +31,12 @@
           autocomplete="off"
           spellcheck="false"
           placeholder="深入浅出Vue.js"
-          v-model="key"
-          @focus="focus"
-          @blur="blur"
+          v-model="search"
+          @focus="keywordList = true"
+          @blur="keywordList = false"
         />
         <ul v-show="keywordList" class="keyword-list">
-          <li v-for="item in hot" :key="item" @mousedown="check(item)">
+          <li v-for="item in hot" :key="item" @mousedown="search = item">
             {{ item }}
           </li>
         </ul>
@@ -46,37 +46,48 @@
 </template>
 
 <script>
-import { reactive, toRefs, toRaw, computed,watchEffect } from "vue";
+import { reactive, toRefs, toRaw, computed, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 export default {
   name: "Header",
   setup() {
+    const route = useRoute(); // 获取当前路由
+    /**
+     * @data 变量集合
+     * @hot {Array} 搜索热点
+     * @search {string} 搜索内容
+     * @keywordList {boolean} 是否显示搜索推荐
+     * @home {boolean} 是否为首页
+     */
     const data = reactive({
       hot: ["深入浅出vue.js", "Vue2", "Vue3", "ES6"],
-      key: null,
+      search: null,
       keywordList: false,
+      home: true,
     });
 
     const methoud = reactive({
-      focus: () => {
-        data.keywordList = true;
-      },
-      blur: () => {
-        data.keywordList = false;
-      },
-      check: (e) => {
-        // 防止使用click导致和blur事件冲突 使用mousedown（鼠标按下选中dom执行） 该方法优先级高于blur
-        data.key = e;
-      },
     });
 
-    const route = useRoute();
+    
+    // 获取当前页面名称
     const plusOne = computed({
-      get: () => toRaw(route).name.value,
+      get: () => toRaw(route).name.value
     });
 
+    // 获取当前滚动条的位置
+    const scroll = () => {
+      if (window.scrollY > 50) {
+        data.home = false;
+      } else {
+        data.home = true;
+      }
+    };
+    
+    // 监听路由变化
     watchEffect(()=>{
-      
+      if(plusOne.value == 'Home')window.addEventListener("scroll", scroll);
+      else window.removeEventListener("scroll",scroll);
     })
 
     return { ...toRefs(data), ...toRefs(methoud), plusOne };
@@ -85,19 +96,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home{
+.home {
   background: none !important;
   border: none !important;
-  transition:  0.5s;
-  .header-nav{
-    a{
+
+  .header-nav {
+    a {
       color: #FFF !important;
     }
     .check {
-      color: chocolate !important;;
+      color: chocolate !important;
     }
   }
 }
+
 .header {
   position: fixed;
   top: 0;
@@ -105,26 +117,26 @@ export default {
   z-index: 10;
   padding: 0 25px;
   width: calc(100% - 50px);
-  height: 70px;
+  height: 50px;
   display: flex;
   align-items: center;
   background-color: #FFF;
   border-bottom: 1px solid rgb(231, 231, 231);
   justify-content: space-between;
+  transition: 0.5s;
 
   .portrait {
     display: flex;
     img {
       width: 60px;
-      height: 65px;
+      height: 50px;
     }
     span {
-      line-height: 65px;
-      font-size: 20px;
+      line-height: 50px;
+      font-size: 17px;
     }
   }
   &-nav {
-    flex: 0.3;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -133,12 +145,13 @@ export default {
       font-size: 19px;
       font-weight: 500;
       font-family: "PingFang SC";
+      margin-right: 15px;
       &::after {
         content: "";
       }
     }
     .check {
-      color: chocolate;;
+      color: chocolate;
     }
   }
   .search {
@@ -174,7 +187,7 @@ export default {
     .keyword-list {
       position: absolute;
       top: 33px;
-        opacity: 0;
+      opacity: 0;
       left: 0;
       width: 165px;
       border: 2px solid cadetblue;

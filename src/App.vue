@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <router-view class="view" />
+  <router-view />
   <Footer />
 </template>
 <script>
@@ -21,9 +21,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  padding-top: 70px;
-}
-.view {
-  min-height: calc(100vh - 121px);
+  padding-top: 50px;
 }
 </style>
