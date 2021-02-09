@@ -1,10 +1,10 @@
 <template>
-  <header class="header">
+  <header :class="['header',plusOne === 'Home'?'home':'']">
     <div class="portrait">
       <!-- <span>YUE Blog</span> -->
       <img src="@/assets/portrait.svg" alt="LOGO" />
     </div>
-    <nav>
+    <nav class="header-nav">
       <router-link to="/" :class="[plusOne === 'Home' ? 'check' : '']">
         首页
       </router-link>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { reactive, toRefs, toRaw, computed } from "vue";
+import { reactive, toRefs, toRaw, computed,watchEffect } from "vue";
 import { useRoute } from "vue-router";
 export default {
   name: "Header",
@@ -75,25 +75,42 @@ export default {
       get: () => toRaw(route).name.value,
     });
 
+    watchEffect(()=>{
+      
+    })
+
     return { ...toRefs(data), ...toRefs(methoud), plusOne };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-header {
+.home{
+  background: none !important;
+  border: none !important;
+  transition:  0.5s;
+  .header-nav{
+    a{
+      color: #FFF !important;
+    }
+    .check {
+      color: chocolate !important;;
+    }
+  }
+}
+.header {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
-  width: 100%;
+  padding: 0 25px;
+  width: calc(100% - 50px);
   height: 70px;
-  background: #fff;
-  border-bottom: 1px solid rgb(211, 211, 211);
-
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  background-color: #FFF;
+  border-bottom: 1px solid rgb(231, 231, 231);
+  justify-content: space-between;
 
   .portrait {
     display: flex;
@@ -106,13 +123,14 @@ header {
       font-size: 20px;
     }
   }
-  nav {
-    flex: 0.4;
+  &-nav {
+    flex: 0.3;
     display: flex;
     align-items: center;
     justify-content: space-between;
     a {
-      font-size: 18px;
+      color: #000;
+      font-size: 19px;
       font-weight: 500;
       font-family: "PingFang SC";
       &::after {
@@ -120,7 +138,7 @@ header {
       }
     }
     .check {
-      color: chocolate;
+      color: chocolate;;
     }
   }
   .search {
