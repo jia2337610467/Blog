@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="portrait">
-      <span>YUE Blog</span>
+      <!-- <span>YUE Blog</span> -->
       <img src="@/assets/portrait.svg" alt="LOGO" />
     </div>
     <nav>
@@ -20,16 +20,28 @@
       <router-link to="/about" :class="[plusOne === 'About' ? 'check' : '']">
         关于
       </router-link>
+      <div class="search">
+        <label for="search">
+          <i class="iconfont icon-sousuo"></i>
+        </label>
+        <input
+          id="search"
+          type="text"
+          aria-label="搜索"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="深入浅出Vue.js"
+          v-model="key"
+          @focus="focus"
+          @blur="blur"
+        />
+        <ul v-show="keywordList" class="keyword-list">
+          <li v-for="item in hot" :key="item" @mousedown="check(item)">
+            {{ item }}
+          </li>
+        </ul>
+      </div>
     </nav>
-    <div class="search">
-      <i class="iconfont icon-sousuo"></i>
-      <input
-        type="text"
-        aria-label="搜索"
-        autocomplete="off"
-        spellcheck="false"
-      />
-    </div>
   </header>
 </template>
 
@@ -40,16 +52,31 @@ export default {
   name: "Header",
   setup() {
     const data = reactive({
-      head: ""
+      hot: ["深入浅出vue.js", "Vue2", "Vue3", "ES6"],
+      key: null,
+      keywordList: false,
+    });
+
+    const methoud = reactive({
+      focus: () => {
+        data.keywordList = true;
+      },
+      blur: () => {
+        data.keywordList = false;
+      },
+      check: (e) => {
+        // 防止使用click导致和blur事件冲突 使用mousedown（鼠标按下选中dom执行） 该方法优先级高于blur
+        data.key = e;
+      },
     });
 
     const route = useRoute();
     const plusOne = computed({
-      get: () => toRaw(route).name.value
+      get: () => toRaw(route).name.value,
     });
 
-    return { ...toRefs(data), plusOne };
-  }
+    return { ...toRefs(data), ...toRefs(methoud), plusOne };
+  },
 };
 </script>
 
@@ -80,13 +107,13 @@ header {
     }
   }
   nav {
-    width: 450px;
+    flex: 0.4;
     display: flex;
     align-items: center;
     justify-content: space-between;
     a {
-      font-size: 20px;
-      font-weight: 600;
+      font-size: 18px;
+      font-weight: 500;
       font-family: "PingFang SC";
       &::after {
         content: "";
@@ -102,36 +129,82 @@ header {
     display: inline-block;
     position: relative;
     margin-right: 1px;
-    border: 1px solid #999;
-    padding: 5px 10px;
-    border-radius: 8px;
 
-    .search-box .iconfont {
+    .iconfont {
       z-index: 0;
       margin: auto;
+      position: absolute;
+      top: 5px;
+      left: 5px;
     }
 
     input {
-      padding-left: 10px;
-      font-size: 18px;
+      height: 30px;
+      padding-left: 25px;
+      font-size: 13px;
       max-width: 150px;
-      border: none;
-      outline: none;
+      border-radius: 5px;
+      border: 1px solid #e0e0e0;
     }
 
     input:focus {
-      border: none;
+      border-radius: none;
+      height: 30px;
+      outline-color: cadetblue;
+    }
+
+    .keyword-list {
+      position: absolute;
+      top: 33px;
+        opacity: 0;
+      left: 0;
+      width: 165px;
+      border: 2px solid cadetblue;
+      background-color: #fff;
+      border-top: none;
+      text-align: left;
+      padding-left: 10px;
+      animation: mymove 0.3s forwards;
+      animation-delay: 0.3s;
+      li {
+        cursor: pointer;
+        padding: 2px 0;
+      }
+    }
+    @keyframes mymove {
+      from {
+        transform: translateY(-10px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes mymove /*Safari and Chrome*/ {
+      from {
+        left: 0px;
+      }
+      to {
+        left: 200px;
+      }
     }
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   header {
     .search {
       cursor: pointer;
       width: 0;
       border-color: transparent;
       position: relative;
+      input {
+        width: 0;
+        height: 0;
+        border: none;
+      }
     }
   }
 }

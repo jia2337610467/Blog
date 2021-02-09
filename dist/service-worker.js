@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.4e20f88cdff018ff8862e05ad1cd0b05.js"
+  "precache-manifest.b8872d5f0794dd3674f109d4b9ef2bc7.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "blog"});
+workbox.core.setCacheNameDetails({prefix: "YUEblog"});
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
