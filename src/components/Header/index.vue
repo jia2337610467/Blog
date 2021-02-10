@@ -21,25 +21,28 @@
         关于
       </router-link>
       <div class="search">
-        <label for="search">
-          <i class="iconfont icon-sousuo"></i>
-        </label>
         <input
           id="search"
           type="text"
           aria-label="搜索"
           autocomplete="off"
           spellcheck="false"
-          placeholder="深入浅出Vue.js"
+          placeholder="Search"
           v-model="search"
           @focus="keywordList = true"
           @blur="keywordList = false"
         />
+        <label for="search">
+          <i class="iconfont icon-sousuo"></i>
+        </label>
         <ul v-show="keywordList" class="keyword-list">
           <li v-for="item in hot" :key="item" @mousedown="search = item">
             {{ item }}
           </li>
         </ul>
+      </div>
+      <div class="mobilbut">
+          
       </div>
     </nav>
   </header>
@@ -66,13 +69,11 @@ export default {
       home: true,
     });
 
-    const methoud = reactive({
-    });
+    const methoud = reactive({});
 
-    
     // 获取当前页面名称
     const plusOne = computed({
-      get: () => toRaw(route).name.value
+      get: () => toRaw(route).name.value,
     });
 
     // 获取当前滚动条的位置
@@ -83,12 +84,12 @@ export default {
         data.home = true;
       }
     };
-    
+
     // 监听路由变化
-    watchEffect(()=>{
-      if(plusOne.value == 'Home')window.addEventListener("scroll", scroll);
-      else window.removeEventListener("scroll",scroll);
-    })
+    watchEffect(() => {
+      if (plusOne.value == "Home") window.addEventListener("scroll", scroll);
+      else window.removeEventListener("scroll", scroll);
+    });
 
     return { ...toRefs(data), ...toRefs(methoud), plusOne };
   },
@@ -102,7 +103,12 @@ export default {
 
   .header-nav {
     a {
-      color: #FFF !important;
+      color: #fff !important;
+    }
+    .search {
+      input {
+        border: 1px solid #fff;
+      }
     }
     .check {
       color: chocolate !important;
@@ -120,7 +126,7 @@ export default {
   height: 50px;
   display: flex;
   align-items: center;
-  background-color: #FFF;
+  background-color: #fff;
   border-bottom: 1px solid rgb(231, 231, 231);
   justify-content: space-between;
   transition: 0.5s;
@@ -160,43 +166,38 @@ export default {
     display: inline-block;
     position: relative;
     margin-right: 1px;
+    background-color: #fff;
+    border-radius: 20px;
 
-    .iconfont {
+    label {
       z-index: 0;
-      margin: auto;
-      position: absolute;
-      top: 5px;
-      left: 5px;
+      line-height: 30px;
+      padding: 0 10px;
     }
 
     input {
-      height: 30px;
-      padding-left: 25px;
-      font-size: 13px;
-      max-width: 150px;
-      border-radius: 5px;
-      border: 1px solid #e0e0e0;
+      padding-left: 15px;
+      font-size: 15px;
+      line-height: 30px;
+      border-radius: 20px;
+      border: 1px solid rgb(207, 207, 207);
     }
-
     input:focus {
-      border-radius: none;
-      height: 30px;
-      outline-color: cadetblue;
+      outline: none;
     }
 
     .keyword-list {
       position: absolute;
-      top: 33px;
+      top: 38px;
+      left: 10px;
       opacity: 0;
-      left: 0;
-      width: 165px;
-      border: 2px solid cadetblue;
-      background-color: #fff;
-      border-top: none;
+      width: 190px;
+      border-radius: 7px;
+      background-color: rgb(243, 239, 239);
       text-align: left;
       padding-left: 10px;
-      animation: mymove 0.3s forwards;
-      animation-delay: 0.3s;
+      animation: mymove 0.2s forwards;
+      animation-delay: 0.2s;
       li {
         cursor: pointer;
         padding: 2px 0;
@@ -222,20 +223,20 @@ export default {
       }
     }
   }
+  .mobilbut {
+    display: none;
+  }
 }
 
 @media (max-width: 900px) {
-  header {
-    .search {
-      cursor: pointer;
-      width: 0;
-      border-color: transparent;
-      position: relative;
-      input {
-        width: 0;
-        height: 0;
-        border: none;
+  .header {
+    &-nav {
+      a {
+        display: none;
       }
+    }
+    .mobilbut {
+      display: block;
     }
   }
 }

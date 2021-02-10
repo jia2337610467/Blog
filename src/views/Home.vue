@@ -5,10 +5,10 @@
         autoplay
         loop
         muted
-        poster="https://www.pexels.com/assets/videos/free-videos-7daa2ef41a140f70c757ce91913a4ecb90570b7d7cd2b401bae868350e02c83a.jpg"
+        poster="headimg"
       >
         <source
-          src="https://static.pexels.com/lib/videos/free-videos.mp4"
+          src="https://assets.mixkit.co/videos/preview/mixkit-aerial-panorama-of-a-coast-and-its-reliefs-36615-large.mp4"
           type="video/mp4"
         />
         <source
@@ -34,11 +34,13 @@
 
 <script>
 import { onMounted, reactive, ref, toRefs } from "vue";
+import { isPC } from "@/hooks/multiport";
 export default {
   name: "Home",
   setup() {
     const audio = ref(null);
     let data = reactive({
+      headimg: '',
       currentTime: 0,
       ok: () => {
         setTimeout(() => {
@@ -50,7 +52,9 @@ export default {
         audio.value.play(); //播放
       },
     });
-    onMounted(() => {});
+    onMounted(() => {
+      if(!isPC()) data.headimg = 'https://images.unsplash.com/photo-1610384458867-67792bc5a7a6?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+    });
 
     return {
       ...toRefs(data),
@@ -105,6 +109,6 @@ export default {
   }
 }
 .home {
-  height: 200px;
+  height: 600px;
 }
 </style>
