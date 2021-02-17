@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <router-view />
+  <router-view class="view" />
   <Footer />
 </template>
 <script>
@@ -22,5 +22,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   padding-top: 50px;
+}
+.view{
+  min-height: calc(100vh - 110px);
 }
 </style>

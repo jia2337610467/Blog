@@ -1,17 +1,21 @@
 <template>
   <main>
     <section>
-      <div v-if="list.length === 0" class="load">
-        <svg-icon icon-class="loading" class="load-svg" />
+      <div class="load" v-if="list.length === 0">
+        <loader />
       </div>
 
-      <div class="box" v-for="(item, index) in list" :key="item.id + `${index}`">
+      <div
+        class="box"
+        v-for="(item, index) in list"
+        :key="item.id + `${index}`"
+      >
         <div class="pictrue" v-show="item.user.avatar">
           <img :src="item.user.avatar" alt="图片" />
         </div>
         <div class="art">
           <h2>{{ item.title }}</h2>
-          <p>{{item.user.username}}</p>
+          <p>{{ item.user.username }}</p>
           <p class="msg">{{ item.message }}</p>
           <div class="tag">
             <p v-for="items in item.tag" :key="items">{{ items }}</p>
@@ -30,7 +34,11 @@
 <script>
 import { onMounted, reactive, toRefs } from "vue";
 import { artList } from "@/network/api/artlice";
+import loader from "@/components/tools/loader";
 export default {
+  components: {
+    loader,
+  },
   setup() {
     let data = reactive({
       list: [],
@@ -46,7 +54,10 @@ export default {
         }).then((res) => {
           if (res) {
             console.log(res.data);
-            data.list = res.data;
+            setTimeout(()=>{
+              data.list = res.data;
+            },3000)
+            
           }
         });
       },
