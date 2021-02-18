@@ -41,9 +41,7 @@
           </li>
         </ul>
       </div>
-      <div class="mobilbut">
-          
-      </div>
+      <div class="mobilbut"></div>
     </nav>
   </header>
 </template>
@@ -98,8 +96,7 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  background: none !important;
-  border: none !important;
+  backdrop-filter: none !important;
 
   .header-nav {
     a {
@@ -109,9 +106,6 @@ export default {
       input {
         border: 1px solid #fff;
       }
-    }
-    .check {
-      color: chocolate !important;
     }
   }
 }
@@ -126,8 +120,7 @@ export default {
   height: 50px;
   display: flex;
   align-items: center;
-  background-color: #fff;
-  border-bottom: 1px solid rgb(231, 231, 231);
+  backdrop-filter: saturate(180%) blur(6px);
   justify-content: space-between;
   transition: 0.5s;
 

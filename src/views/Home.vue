@@ -123,16 +123,15 @@ export default {
 }
 .artlice {
   margin: 10px 18%;
-
-  -moz-column-count: 3; /* Firefox */
-  -webkit-column-count: 3; /* Safari �� Chrome */
-  column-count: 3; /* 将 div 元素中的文本分为2列，并规定列间1rem像素的间隔。 */
+  -moz-columns: 280px 4; /* Firefox */
+  -webkit-columns: 280px 4; /* Safari �� Chrome */
+  columns: 280px 4; /* 将 div 元素中的文本分为2列，并规定列间1rem像素的间隔。 */
   -moz-column-gap: 1em;
   -webkit-column-gap: 1em;
   column-gap: 1em;
 
   .box {
-    width: 100%;
+    width: 280px;
     margin-bottom: 10px;
     min-height: 100px;
     box-shadow: 0px 0px 5px 1px #999999;
