@@ -56,9 +56,9 @@ export default {
     let data = reactive({
       headimg: "",
       img1:
-        "https://images.pexels.com/photos/4255484/pexels-photo-4255484.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        "https://mixkit.imgix.net/art/preview/mixkit-cat-tangled-up-in-christmas-lights-475-square-large.png?w=441&h=441&q=80&auto=format%2Ccompress&q=80&dpr=1",
       img2:
-        "https://images.pexels.com/photos/4765139/pexels-photo-4765139.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        "https://mixkit.imgix.net/art/preview/mixkit-woman-watching-fireworks-over-a-city-skyline-175-square-large.png?w=441&h=441&q=80&auto=format%2Ccompress&q=80&dpr=1",
       currentTime: 0,
       ok: () => {
         setTimeout(() => {

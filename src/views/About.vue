@@ -8,7 +8,6 @@
       frameborder="0"
       scrolling="no"
       src="https://www.html5tricks.com/demo/html5-canvas-3d-model-camera/index.html"
-      width="50%"
       height="500px"
     ></iframe>
   </div>
@@ -74,6 +73,15 @@ export default {
       -webkit-animation: Blink 1s ease-in 0s infinite;
       animation: Blink 1s ease-in 0s infinite;
     }
+  }
+  iframe{
+    width: 60%;
+  }
+}
+@media screen and (max-width: 700px) {
+    iframe{
+    width: 90% !important;
+    margin-bottom: 10px;
   }
 }
 </style>

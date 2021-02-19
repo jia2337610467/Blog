@@ -97,10 +97,12 @@ export default {
 <style lang="scss" scoped>
 .home {
   backdrop-filter: none !important;
-
   .header-nav {
     a {
       color: #fff !important;
+    }
+    .check {
+      color: chocolate !important;
     }
     .search {
       background-color: #fff;
@@ -118,7 +120,7 @@ export default {
   z-index: 10;
   padding: 0 25px;
   width: calc(100% - 50px);
-  height: 50px;
+  height: 60px;
   display: flex;
   align-items: center;
   backdrop-filter: saturate(180%) blur(6px);

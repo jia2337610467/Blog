@@ -21,7 +21,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  padding-top: 50px;
+  padding-top: 60px;
 }
 .view{
   min-height: calc(100vh - 110px);
