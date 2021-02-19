@@ -18,15 +18,20 @@
   </div>
 
   <main class="artlice">
-    <div class="box" v-for="item in [1,1,2,1,2,2]" :key="item">
-      <img
-        class="img"
-        :src="item == 1?img1:img2"
-        alt="pic"
-      />
+    <div
+      class="box"
+      v-for="item in [1, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1]"
+      :key="item"
+    >
+      <img class="img" :src="item == 1 ? img1 : img2" alt="pic" />
       <div>
-        <h2>文章标题</h2>
-        <p>详情：现在这些都是现实的详情信息</p>
+        <h2>原型到原型链</h2>
+        <p>
+          那么这个函数的prototype 指向的是什么呢 其实函数的prototype
+          指向了一个对象
+          ，这个对象就是调用该函数而构建的实例的原型，也就是person
+          和person1的原型； 什么事原型呢？
+        </p>
       </div>
     </div>
   </main>
@@ -50,8 +55,10 @@ export default {
     const audio = ref(null);
     let data = reactive({
       headimg: "",
-      img1:"https://images.pexels.com/photos/4255484/pexels-photo-4255484.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      img2:"https://images.pexels.com/photos/4765139/pexels-photo-4765139.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      img1:
+        "https://images.pexels.com/photos/4255484/pexels-photo-4255484.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      img2:
+        "https://images.pexels.com/photos/4765139/pexels-photo-4765139.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
       currentTime: 0,
       ok: () => {
         setTimeout(() => {
@@ -122,27 +129,26 @@ export default {
   }
 }
 .artlice {
-  margin: 10px 18%;
-  -moz-columns: 280px 4; /* Firefox */
-  -webkit-columns: 280px 4; /* Safari �� Chrome */
-  columns: 280px 4; /* 将 div 元素中的文本分为2列，并规定列间1rem像素的间隔。 */
-  -moz-column-gap: 1em;
-  -webkit-column-gap: 1em;
-  column-gap: 1em;
-
+  margin: 10px 15%;
+  -moz-columns: 300px 4; /* Firefox */
+  -webkit-columns: 300px 4; /* Safari �� Chrome */
+  columns: 300px 4; /* 将 div 元素中的文本分为2列，并规定列间1rem像素的间隔。 */
   .box {
-    width: 280px;
-    margin-bottom: 10px;
+    width: 300px;
     min-height: 100px;
-    box-shadow: 0px 0px 5px 1px #999999;
-    border-radius: 5px;
+    margin-bottom: 20px;
     padding-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 1px #dddddd;
     -moz-page-break-inside: avoid;
     -webkit-column-break-inside: avoid;
     break-inside: avoid; /*break-inside: avoid; 避免元素内部断行并产生新列*/
     .img {
       width: 100%;
       height: auto;
+    }
+    p {
+      padding: 10px;
     }
   }
 }
@@ -155,6 +161,10 @@ export default {
     margin: 10px auto;
     width: 96%;
     columns: 1;
+    .box{
+      width: 90%;
+      margin: 0 auto 20px;
+    }
   }
 }
 </style>

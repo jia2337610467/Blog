@@ -103,6 +103,7 @@ export default {
       color: #fff !important;
     }
     .search {
+      background-color: #fff;
       input {
         border: 1px solid #fff;
       }
@@ -159,7 +160,7 @@ export default {
     display: inline-block;
     position: relative;
     margin-right: 1px;
-    background-color: #fff;
+    // background-color: #fff;
     border-radius: 20px;
 
     label {
