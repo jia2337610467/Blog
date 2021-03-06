@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0cf3bf"],{"639e":function(n,c,e){"use strict";e.r(c);var t=e("7a23");function r(n,c){return Object(t["r"])(),Object(t["d"])("div",null," 我是笔记 ")}const u={};u.render=r;c["default"]=u}}]);
-//# sourceMappingURL=chunk-2d0cf3bf.cf47e189.js.map
