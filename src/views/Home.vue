@@ -22,6 +22,7 @@
       class="box"
       v-for="item in [1, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1]"
       :key="item"
+      @click="toback(item)"
     >
       <img class="img" :src="item == 1 ? img1 : img2" alt="pic" />
       <div>
@@ -49,9 +50,11 @@
 <script>
 import { onMounted, reactive, ref, toRefs } from "vue";
 import { isPC } from "@/hooks/multiport";
+import { useRouter } from "vue-router";
 export default {
   name: "Home",
   setup() {
+    const router = useRouter();
     const audio = ref(null);
     let data = reactive({
       headimg: "",
@@ -70,14 +73,21 @@ export default {
         audio.value.play(); //播放
       },
     });
+
     onMounted(() => {
       if (!isPC())
         data.headimg =
           "https://images.unsplash.com/photo-1610384458867-67792bc5a7a6?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60";
     });
 
+    // 详情
+    const toback = (e) => {
+      router.push({ name: "artDetail", params: { id: e } });
+    };
+
     return {
       ...toRefs(data),
+      toback,
       audio,
     };
   },
@@ -161,7 +171,7 @@ export default {
     margin: 10px auto;
     width: 96%;
     columns: 1;
-    .box{
+    .box {
       width: 90%;
       margin: 0 auto 20px;
     }

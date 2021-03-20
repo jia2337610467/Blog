@@ -48,7 +48,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10vh;
+  margin: 10vh 0;
+  padding-bottom: 5vh;
   h1 {
     line-height: 7vh;
   }

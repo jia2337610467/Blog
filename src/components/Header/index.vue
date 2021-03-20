@@ -1,23 +1,37 @@
 <template>
-  <header :class="['header', plusOne === 'Home' && home ? 'home' : '']">
-    <div class="portrait">
-      <!-- <span>YUE Blog</span> -->
-      <img src="@/assets/logo2.png" alt="LOGO" />
+  <header :class="['j-header', home ? 'none' : '']">
+    <div class="logo">
+      <div>
+        <img src="@/assets/logo2.png" alt="LOGO" />
+      </div>
     </div>
-    <nav class="header-nav">
-      <router-link to="/" :class="[plusOne === 'Home' ? 'check' : '']">
+    <div class="header-nav">
+      <ul class="header-ul">
+        <li class="header-li">
+          首页
+        </li>
+        <li class="header-li">
+          文章
+        </li>
+        <li class="header-li">
+          笔记
+        </li>
+        <li class="header-li">
+          关于
+        </li>
+      </ul>
+    </div>
+    <!-- <nav :class="['header-nav', plusOne === 'Home' ? 'header-nav1' : '']">
+      <router-link to="/" replace>
         首页
       </router-link>
-      <router-link
-        to="/artlice"
-        :class="[plusOne === 'Artlice' ? 'check' : '']"
-      >
+      <router-link to="/artlice">
         文章
       </router-link>
-      <router-link to="/note" :class="[plusOne === 'Note' ? 'check' : '']">
+      <router-link to="/note">
         笔记
       </router-link>
-      <router-link to="/about" :class="[plusOne === 'About' ? 'check' : '']">
+      <router-link to="/about">
         关于
       </router-link>
       <div class="search">
@@ -33,7 +47,7 @@
           @blur="keywordList = false"
         />
         <label for="search">
-          <i class="iconfont icon-sousuo"></i>
+          <i class="iconfont icon-sousuo" ></i>
         </label>
         <ul v-show="keywordList" class="keyword-list">
           <li v-for="item in hot" :key="item" @mousedown="search = item">
@@ -42,7 +56,8 @@
         </ul>
       </div>
       <div class="mobilbut"></div>
-    </nav>
+    </nav> -->
+  
   </header>
 </template>
 
@@ -54,20 +69,17 @@ export default {
   setup() {
     const route = useRoute(); // 获取当前路由
     /**
-     * @data 变量集合
      * @hot {Array} 搜索热点
      * @search {string} 搜索内容
      * @keywordList {boolean} 是否显示搜索推荐
      * @home {boolean} 是否为首页
      */
     const data = reactive({
-      hot: ["深入浅出vue.js", "Vue2", "Vue3", "ES6"],
+      hot: ["Vue3.x", "Vue2.x", "CSS3", "ES6"],
       search: null,
       keywordList: false,
       home: true,
     });
-
-    const methoud = reactive({});
 
     // 获取当前页面名称
     const plusOne = computed({
@@ -89,71 +101,66 @@ export default {
       else window.removeEventListener("scroll", scroll);
     });
 
-    return { ...toRefs(data), ...toRefs(methoud), plusOne };
+    return { ...toRefs(data), plusOne };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.home {
+.none {
   backdrop-filter: none !important;
-  .header-nav {
-    a {
-      color: #fff !important;
-    }
-    .check {
-      color: chocolate !important;
-    }
-    .search {
-      background-color: #fff;
-      input {
-        border: 1px solid #fff;
-      }
-    }
-  }
 }
 
-.header {
+.j-header {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
   padding: 0 25px;
   width: calc(100% - 50px);
-  height: 60px;
+  height: 72px;
   display: flex;
   align-items: center;
   backdrop-filter: saturate(180%) blur(6px);
   justify-content: space-between;
   transition: 0.5s;
+  cursor: pointer;
 
-  .portrait {
-    display: flex;
-    img {
-      width: 60px;
-      height: 50px;
-    }
-    span {
-      line-height: 50px;
-      font-size: 17px;
-    }
-  }
-  &-nav {
+  .logo {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    a {
-      color: #000;
-      font-size: 19px;
-      font-weight: 500;
-      font-family: "PingFang SC";
-      margin-right: 15px;
-      &::after {
-        content: "";
+    height: 100%;
+    z-index: 111;
+    div {
+      img {
+        display: block;
+        width: 60px;
       }
     }
-    .check {
-      color: chocolate;
+  }
+
+  .header-nav {
+    position: relative;
+    .header-ul {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(18, 20, 28, 0.7);
+      height: fit-content;
+      position: relative;
+      z-index: 10000;
+    }
+    .header-li {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+      transition: all 0.3s ease-out;
+      margin-left: 15px;
+    }
+  }
+  &-nav1 {
+    a {
+      color: #fff !important;
     }
   }
   .search {

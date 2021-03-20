@@ -1,6 +1,8 @@
 <template>
   <Header />
-  <router-view class="view" />
+  <main class="view">
+    <router-view />
+  </main>
   <Footer />
 </template>
 <script>
