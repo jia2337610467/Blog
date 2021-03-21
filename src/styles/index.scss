@@ -1,0 +1,35 @@
+html {
+    font-family: Apple System, "SF Pro SC", "SF Pro Display",
+        "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB",
+        "STHeiti", "Microsoft YaHei", "Microsoft JhengHei",
+        "Source Han Sans SC", "Noto Sans CJK SC",
+        "Source Han Sans CN", sans-serif;
+    font-size: 15px;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+img {
+    display: block;
+}
+
+ol,
+ul {
+    display: block;
+    list-style-type: none;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    list-style-type: none;
+}
