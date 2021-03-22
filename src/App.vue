@@ -17,8 +17,8 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
-  background-color: #f9f9f9;
+  min-height: calc(100vh - 80px);
+  background-color: #F0F2F5;
 }
 
 /* 可以设置不同的进入和离开动画   */
