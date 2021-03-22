@@ -1,9 +1,9 @@
 <template>
-  <keep-alive include>
-    <transition name="slide-fade">
+  <transition name="slide-fade">
+    <!-- <keep-alive> -->
       <router-view></router-view>
-    </transition>
-  </keep-alive>
+    <!-- </keep-alive> -->
+  </transition>
 </template>
 
 <script>
@@ -17,6 +17,8 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  background-color: #f9f9f9;
 }
 
 /* 可以设置不同的进入和离开动画   */

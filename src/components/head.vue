@@ -1,6 +1,6 @@
 <template>
-  <div class="j-header-wrapper">
-    <div class="j-header">
+  <header class="j-header-wrapper">
+    <nav class="j-header">
       <div class="logo" @click="onLogo">{{ logo }}</div>
       <div class="header">
         <ul class="headerul">
@@ -8,8 +8,8 @@
           <li class="headerli">笔记</li>
         </ul>
       </div>
-    </div>
-  </div>
+    </nav>
+  </header>
 </template>
 
 <script>
@@ -45,6 +45,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  height: 100%;
   padding: 0 30px;
   backdrop-filter: saturate(180%) blur(6px);
   background-color: #fff;
