@@ -8,7 +8,7 @@ const routing = [
   {
     path: "/essay",
     name: "essay",
-    component: () => import("views/essay"),
+    component: () => import("@/views/essay"),
   },
 ];
 

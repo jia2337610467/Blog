@@ -15,16 +15,9 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 export default defineComponent({
-  name: "Jhead",
-  props: {
-    logo: {
-      type: String,
-      default: "LOGO",
-    },
-  },
   setup(props, ctx) {
     const router = useRouter();
 
@@ -33,14 +26,15 @@ export default defineComponent({
     };
 
     // 跳转页面
-    const onRoute = (e) => {
-      console.log(e, router);
-      router.push(e);
-    };
+    const methods = reactive({
+      onRoute: (e) => {
+        router.push({ path: e });
+      },
+    });
 
     return {
       onLogo,
-      onRoute,
+      ...toRefs(methods),
     };
   },
 });
