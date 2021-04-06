@@ -1,11 +1,20 @@
 <template>
-  <div>随笔</div>
+  <div>{{ name }}</div>
 </template>
 
 <script>
 export default {
-  setup() {},
+  components:{
+  },
+  setup() {
+    const name = "随笔";
+    return {
+      name,
+    };
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

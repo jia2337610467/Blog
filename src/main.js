@@ -6,6 +6,7 @@ import App from "./App.vue";
 import "styles/index.scss"
 // 为不支持promise的浏览器提供pormise方法
 import "es6-promise/auto";
+
 // 使用element
 import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';

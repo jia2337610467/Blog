@@ -1,13 +1,16 @@
 <template>
+  <Jhead />
   <transition name="slide-fade">
-    <!-- <keep-alive> -->
-      <router-view></router-view>
-    <!-- </keep-alive> -->
+    <router-view></router-view>
   </transition>
 </template>
 
 <script>
+import Jhead from "comps/head.vue";
 export default {
+  components: {
+    Jhead,
+  },
   setup() {},
 };
 </script>
@@ -17,8 +20,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-height: calc(100vh - 80px);
-  background-color: #F0F2F5;
+  background-color: #f0f2f5;
 }
 
 /* 可以设置不同的进入和离开动画   */

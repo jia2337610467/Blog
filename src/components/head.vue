@@ -7,18 +7,23 @@
       <div class="header">
         <ul class="headerul">
           <li class="headerli" @click="onRoute('/')">首页</li>
-          <li class="headerli" @click="onRoute('/essay')">笔记</li>
+          <li class="headerli" @click="onRoute('Essay')">笔记</li>
         </ul>
       </div>
     </nav>
   </header>
+  <div class="bg">
+    <img src="@/assets/image/bg-1.jpg" alt="背景图" />
+  </div>
 </template>
 
 <script>
 import { defineComponent, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
+
 export default defineComponent({
   setup(props, ctx) {
+    console.log(props);
     const router = useRouter();
 
     const onLogo = () => {
@@ -28,7 +33,7 @@ export default defineComponent({
     // 跳转页面
     const methods = reactive({
       onRoute: (e) => {
-        router.push({ path: e });
+        router.push(e);
       },
     });
 
@@ -74,8 +79,20 @@ export default defineComponent({
     .headerli {
       color: #111;
       font-size: 19px;
-      margin-right: 25px;
+      margin-right: 15px;
+      padding-right: 10px;
     }
+  }
+}
+
+.bg {
+  width: 100vw;
+  height: 55vh;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
   }
 }
 </style>

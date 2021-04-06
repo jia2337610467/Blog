@@ -1,4 +1,4 @@
-import home from "./../views/home.vue";
+import home from "@/views/home.vue";
 const routing = [
   {
     path: "/",
@@ -7,8 +7,8 @@ const routing = [
   },
   {
     path: "/essay",
-    name: "essay",
-    component: () => import("@/views/essay"),
+    name: "Essay",
+    component: () => import("@/views/essay.vue"),
   },
 ];
 
