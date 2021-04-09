@@ -6,8 +6,14 @@
       </div>
       <div class="header">
         <ul class="headerul">
-          <li class="headerli" @click="onRoute('/')">首页</li>
-          <li class="headerli" @click="onRoute('Essay')">笔记</li>
+          <li
+            class="headerli"
+            v-for="item in head"
+            @click="onRoute(item.route)"
+            :key="item.id"
+          >
+            {{ item.name }}
+          </li>
         </ul>
       </div>
     </nav>
@@ -22,23 +28,25 @@ import { defineComponent, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
-  setup(props, ctx) {
-    console.log(props);
+  setup(ctx) {
     const router = useRouter();
-
     const onLogo = () => {
       ctx.emit("myclick");
     };
-
     // 跳转页面
     const methods = reactive({
       onRoute: (e) => {
         router.push(e);
       },
     });
+    const head = [
+      { name: "首页", route: "/", id: 0 },
+      { name: "笔记", route: "Essay", id: 1 },
+    ];
 
     return {
       onLogo,
+      head,
       ...toRefs(methods),
     };
   },
@@ -92,7 +100,7 @@ export default defineComponent({
   img {
     width: 100%;
     height: 100%;
-    object-fit:cover;
+    object-fit: cover;
   }
 }
 </style>
