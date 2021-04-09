@@ -18,18 +18,27 @@
       </div>
     </nav>
   </header>
-  <div class="bg">
+  <div class="bg" :style="{ height: `${bgHeight}vh` }">
     <img src="@/assets/image/bg-1.jpg" alt="背景图" />
   </div>
 </template>
 
 <script>
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, computed, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
-  setup(ctx) {
+  props: ["height"],
+  setup(props, ctx) {
     const router = useRouter();
+    // 背景图高度
+    const bgHeight = computed({
+      get: () => props.height || 70,
+      set: (val) => {
+        console.log(val);
+      },
+    });
+    // 点击回调函数
     const onLogo = () => {
       ctx.emit("myclick");
     };
@@ -39,6 +48,7 @@ export default defineComponent({
         router.push(e);
       },
     });
+    // 导航路由
     const head = [
       { name: "首页", route: "/", id: 0 },
       { name: "笔记", route: "Essay", id: 1 },
@@ -47,6 +57,7 @@ export default defineComponent({
     return {
       onLogo,
       head,
+      bgHeight,
       ...toRefs(methods),
     };
   },
@@ -94,8 +105,7 @@ export default defineComponent({
 }
 
 .bg {
-  width: 100vw;
-  height: 55vh;
+  width: 100%;
   overflow: hidden;
   img {
     width: 100%;

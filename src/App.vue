@@ -1,23 +1,21 @@
 <template>
-  <Jhead />
   <transition name="slide-fade">
     <router-view></router-view>
   </transition>
+  <!-- 底部安全栏 -->
+  <div class="foot">
+    <p>2021-01-01 @yue-Blog</p>
+  </div>
 </template>
 
 <script>
-import Jhead from "comps/head.vue";
-export default {
-  components: {
-    Jhead,
-  },
-  setup() {},
-};
+export default {};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Ubuntu, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f0f2f5;
@@ -37,5 +35,14 @@ export default {
 .slide-fade-leave-to {
   transform: translateX(20px);
   opacity: 0;
+}
+
+/* 底部安全栏 */
+.foot {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

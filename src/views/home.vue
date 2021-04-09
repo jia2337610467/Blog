@@ -1,7 +1,10 @@
 <template>
+  <Jheader :height="90" />
   <main class="main">
     <div class="blog-list">
-      <Yabstract />
+      <div class="abstract-wrapper">
+        <Yabstract v-for="item in list" :key="item" />
+      </div>
     </div>
     <div class="info-wrapper">
       <div class="personal-info-wrapper">
@@ -19,13 +22,16 @@
 <script>
 import { reactive, toRefs, computed } from "vue";
 import { useStore } from "vuex";
-import Yabstract from "comps/abstract/index.vue"
+import Yabstract from "comps/abstract/index.vue";
+import Jheader from "comps/Header/index.vue";
 export default {
-  components: {Yabstract},
+  components: { Yabstract, Jheader },
   setup() {
     const store = useStore();
     // 响应数据
-    const data = reactive({});
+    const data = reactive({
+      list: [1, 2, 3, 4, 5, 6, 7, 8],
+    });
 
     return {
       ...toRefs(data),
@@ -49,11 +55,14 @@ export default {
   .blog-list {
     flex: auto;
     width: 0;
+    .abstract-wrapper {
+      width: 100%;
+    }
   }
   .info-wrapper {
     position: -webkit-sticky;
     position: sticky;
-    top: 70px;
+    top: 90px;
     overflow: hidden;
     transition: all 0.3s;
     margin-left: 15px;

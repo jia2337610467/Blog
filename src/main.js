@@ -4,6 +4,7 @@ import store from "./store";
 import App from "./App.vue";
 // 全局样式
 import "styles/index.scss"
+import "styles/color.css"
 // 为不支持promise的浏览器提供pormise方法
 import "es6-promise/auto";
 
