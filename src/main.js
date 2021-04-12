@@ -7,9 +7,15 @@ import "styles/index.scss"
 import "styles/color.css"
 // 为不支持promise的浏览器提供pormise方法
 import "es6-promise/auto";
-
 // 使用element
-import ElementPlus from 'element-plus';
-import 'element-plus/lib/theme-chalk/index.css';
 
-createApp(App).use(ElementPlus).use(router).use(store).mount("#app");
+// import { Button } from 'element-plus';
+const app = createApp(App);
+
+// const element = [
+//     Button,
+// ];
+// element.forEach(plugin => {
+//     app.use(plugin)
+// })
+app.use(router).use(store).mount("#app");

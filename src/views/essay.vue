@@ -1,8 +1,10 @@
 <template>
-  <Jheader  :height="40" />
-  <div class="main">
-    <div class="tab">标题</div>
-    <Yabstract v-for="item in list" :key="item" />
+  <div>
+    <Jheader :height="40" />
+    <div class="main">
+      <div class="tab">标题</div>
+      <Yabstract v-for="item in list" :key="item" />
+    </div>
   </div>
 </template>
 
