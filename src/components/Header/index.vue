@@ -6,18 +6,17 @@
       </div>
       <div class="header">
         <ul class="headerul">
-          <li
-            class="headerli"
+          <li class="headerli"
             v-for="item in head"
             @click="onRoute(item.route)"
-            :key="item.id"
-          >
+            :key="item.id">
             {{ item.name }}
           </li>
         </ul>
       </div>
     </nav>
   </header>
+
   <div class="bg" :style="{ height: `${bgHeight}vh` }">
     <img src="@/assets/image/bg-1.jpg" alt="背景图" />
   </div>
@@ -84,7 +83,7 @@ export default defineComponent({
 
   .logo {
     img {
-      width: 200px;
+      width: 160px;
       height: auto;
     }
   }
@@ -96,8 +95,8 @@ export default defineComponent({
     display: flex;
     align-items: center;
     .headerli {
-      color: #111;
-      font-size: 19px;
+      color: #666;
+      font-size: 18px;
       margin-right: 15px;
       padding-right: 10px;
     }

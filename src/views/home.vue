@@ -11,7 +11,7 @@
         <img
           src="https://zyj_yida.gitee.io/source/img/ico/head.jpg"
           alt="author-avatar"
-          class="personal-img"
+          class="personal-img" 
         />
         <h3 class="name">YUE</h3>
       </div>
@@ -73,6 +73,9 @@ export default {
     box-sizing: border-box;
     padding: 0 15px;
     background: var(--background-color);
+    &:hover{
+      box-shadow: var(--box-shadow-hover);
+    }
     .personal-info-wrapper {
       background-color: #fff;
       padding: 20px 0;
