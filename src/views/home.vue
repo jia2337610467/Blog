@@ -7,16 +7,16 @@
           <Yabstract v-for="item in list" :key="item" />
         </div>
       </div>
-      <div class="info-wrapper">
-        <div class="personal-info-wrapper">
-          <img
-            src="https://zyj_yida.gitee.io/source/img/ico/head.jpg"
-            alt="author-avatar"
-            class="personal-img"
-          />
-          <h3 class="name">YUE</h3>
-        </div>
+    <div class="info-wrapper">
+      <div class="personal-info-wrapper">
+        <img
+          src="https://zyj_yida.gitee.io/source/img/ico/head.jpg"
+          alt="author-avatar"
+          class="personal-img" 
+        />
+        <h3 class="name">YUE</h3>
       </div>
+    </div>
     </main>
   </div>
 </template>
@@ -75,6 +75,9 @@ export default {
     box-sizing: border-box;
     padding: 0 15px;
     background: var(--background-color);
+    &:hover{
+      box-shadow: var(--box-shadow-hover);
+    }
     .personal-info-wrapper {
       background-color: #fff;
       padding: 20px 0;

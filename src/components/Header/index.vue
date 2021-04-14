@@ -16,6 +16,7 @@
       </div>
     </nav>
   </header>
+
   <div class="bg" :style="{ height: `${bgHeight}vh` }">
     <img :src="bgimg" alt="背景图" />
     <div class="main">
