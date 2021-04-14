@@ -1,25 +1,23 @@
 <template>
   <header class="j-header-wrapper" ref="header">
     <nav class="j-header">
-      <div class="logo" @click="onLogo">
+      <div class="logo">
         <img src="@/assets/image/logo.png" alt="LOGO" />
       </div>
       <div class="header">
         <ul class="headerul">
           <li
             class="headerli"
-            v-for="item in head"
+            v-for="item in route"
             @click="onRoute(item.route)"
             :key="item.id"
-          >
-            {{ item.name }}
-          </li>
+          >{{ item.name }}</li>
         </ul>
       </div>
     </nav>
   </header>
   <div class="bg" :style="{ height: `${bgHeight}vh` }">
-    <img src="@/assets/image/bg-1.jpg" alt="背景图" />
+    <img :src="bgimg" alt="背景图" />
     <div class="main">
       <h1>{{ bgTitle }}</h1>
       <p class="description">{{ bgTitleEN }}</p>
@@ -30,26 +28,25 @@
 <script>
 import { defineComponent, computed, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
+import img from "@/utils/image"
 
 export default defineComponent({
-  props: ["height"],
+  props: ["height", "headine", "subhead"],
   setup(props, ctx) {
     const router = useRouter();
+    console.log(props);
     // 背景图高度
     const bgHeight = computed({
-      get: () => props.height || 70
+      get: () => props.height || 80
     });
-    // 点击回调函数
-    const onLogo = () => {
-      ctx.emit("myclick");
-    };
+
     // 定义变量
     const data = reactive({
-      bgTitle: "人生来来往往，来日并不方长。",
-      bgTitleEN: "Life comes and goes, and the future is not long. ",
+      bgTitle: computed({ get: () => props.headine || "人生来来往往，来日并不方长。" }),
+      bgTitleEN: computed({ get: () => props.subhead || "Life comes and goes, and the future is not long. " }),
+      bgimg: img.getImg()
     });
-    
-    
+
     // 跳转页面
     const methods = reactive({
       onRoute: (e) => {
@@ -58,15 +55,14 @@ export default defineComponent({
     });
 
     // 导航路由
-    const head = [
+    const route = [
       { name: "主页", route: "/", id: 0 },
       { name: "笔记", route: "Essay", id: 1 },
       { name: "关于我", route: "About", id: 2 },
     ];
 
     return {
-      onLogo,
-      head,
+      route,
       bgHeight,
       ...toRefs(methods),
       ...toRefs(data),
@@ -118,6 +114,7 @@ export default defineComponent({
 .bg {
   width: 100%;
   overflow: hidden;
+  position: relative;
   img {
     width: 100%;
     height: 100%;
