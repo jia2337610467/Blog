@@ -1,11 +1,12 @@
 <template>
-  <Jheader :height="90" />
-  <main class="main">
-    <div class="blog-list">
-      <div class="abstract-wrapper">
-        <Yabstract v-for="item in list" :key="item" />
+  <div>
+    <Jheader :height="90" />
+    <main class="main">
+      <div class="blog-list">
+        <div class="abstract-wrapper">
+          <Yabstract v-for="item in list" :key="item" />
+        </div>
       </div>
-    </div>
     <div class="info-wrapper">
       <div class="personal-info-wrapper">
         <img
@@ -16,7 +17,8 @@
         <h3 class="name">YUE</h3>
       </div>
     </div>
-  </main>
+    </main>
+  </div>
 </template>
 
 <script>

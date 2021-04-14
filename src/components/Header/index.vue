@@ -1,5 +1,5 @@
 <template>
-  <header class="j-header-wrapper">
+  <header class="j-header-wrapper" ref="header">
     <nav class="j-header">
       <div class="logo" @click="onLogo">
         <img src="@/assets/image/logo.png" alt="LOGO" />
@@ -19,6 +19,10 @@
 
   <div class="bg" :style="{ height: `${bgHeight}vh` }">
     <img src="@/assets/image/bg-1.jpg" alt="背景图" />
+    <div class="main">
+      <h1>{{ bgTitle }}</h1>
+      <p class="description">{{ bgTitleEN }}</p>
+    </div>
   </div>
 </template>
 
@@ -32,25 +36,31 @@ export default defineComponent({
     const router = useRouter();
     // 背景图高度
     const bgHeight = computed({
-      get: () => props.height || 70,
-      set: (val) => {
-        console.log(val);
-      },
+      get: () => props.height || 70
     });
     // 点击回调函数
     const onLogo = () => {
       ctx.emit("myclick");
     };
+    // 定义变量
+    const data = reactive({
+      bgTitle: "人生来来往往，来日并不方长。",
+      bgTitleEN: "Life comes and goes, and the future is not long. ",
+    });
+    
+    
     // 跳转页面
     const methods = reactive({
       onRoute: (e) => {
         router.push(e);
       },
     });
+
     // 导航路由
     const head = [
-      { name: "首页", route: "/", id: 0 },
+      { name: "主页", route: "/", id: 0 },
       { name: "笔记", route: "Essay", id: 1 },
+      { name: "关于我", route: "About", id: 2 },
     ];
 
     return {
@@ -58,6 +68,7 @@ export default defineComponent({
       head,
       bgHeight,
       ...toRefs(methods),
+      ...toRefs(data),
     };
   },
 });
@@ -65,7 +76,7 @@ export default defineComponent({
 
 <style lang="scss">
 .j-header-wrapper {
-  height: 72px;
+  height: 62px;
   width: 100%;
   position: fixed;
   top: 0;
@@ -78,7 +89,7 @@ export default defineComponent({
   height: 100%;
   padding: 0 30px;
   backdrop-filter: saturate(180%) blur(6px);
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
   cursor: pointer;
 
   .logo {
@@ -95,8 +106,8 @@ export default defineComponent({
     display: flex;
     align-items: center;
     .headerli {
-      color: #666;
-      font-size: 18px;
+      color: rgb(197, 112, 112);
+      font-size: 19px;
       margin-right: 15px;
       padding-right: 10px;
     }
@@ -110,6 +121,34 @@ export default defineComponent({
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  .main {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+    h1 {
+      margin: 0 auto 1.8rem;
+      font-size: 2.5rem;
+      color: rgb(255, 255, 255);
+      font-family: Regular, cursive;
+      transition: all 0.25s ease-in-out 0.04s;
+      transform: translateY(0px);
+      opacity: 1;
+    }
+    .description {
+      margin: 1.8rem auto;
+      font-size: 1.6rem;
+      line-height: 1.3;
+
+      color: rgb(255, 255, 255);
+      font-family: Regular, cursive;
+      transition: all 0.25s ease-in-out 0.08s;
+      transform: translateY(0px);
+      opacity: 1;
+    }
   }
 }
 </style>

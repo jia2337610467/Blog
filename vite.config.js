@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
+import vitePluginImp from "vite-plugin-imp";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -30,15 +31,27 @@ export default defineConfig({
     // 别名
     alias: {
       "@": path.resolve(__dirname, "src"),
-      "comps": path.resolve(__dirname, "src/components"),
-      "views": path.resolve(__dirname, "src/views"),
-      "styles": path.resolve(__dirname, "src/styles"),
-      "routes": path.resolve(__dirname, "src/routes"),
-      "store": path.resolve(__dirname, "src/store"),
+      comps: path.resolve(__dirname, "src/components"),
+      views: path.resolve(__dirname, "src/views"),
+      styles: path.resolve(__dirname, "src/styles"),
+      routes: path.resolve(__dirname, "src/routes"),
+      store: path.resolve(__dirname, "src/store"),
     },
     // 省略文件拓展名称 （不建议省略vue）
     extensions: [".js", ".ts", ".json", "jsx", "tsx"],
   },
   // 插件基于Rollup ,利用插件去扩展项目
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    vitePluginImp({
+      libList: [
+        {
+          libName: "element-plus",
+          style: (name) => {
+            return `element-plus/lib/theme-chalk/el-${name}.css`;
+          },
+        },
+      ],
+    }),
+  ],
 });

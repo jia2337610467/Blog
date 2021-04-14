@@ -1,7 +1,9 @@
 <template>
-  <transition name="slide-fade">
-    <router-view></router-view>
-  </transition>
+  <router-view v-slot="{ Component }">
+    <transition name="slide-fade">
+      <component :is="Component" />
+    </transition>
+  </router-view>
   <!-- 底部安全栏 -->
   <div class="foot">
     <p>2021-01-01 @yue-Blog</p>
