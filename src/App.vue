@@ -8,10 +8,17 @@
   <div class="foot">
     <p>2021-01-01 @yue-Blog</p>
   </div>
+  <!-- 返回顶部 -->
+  <Yueui />
 </template>
 
 <script>
-export default {};
+import Yueui from "@/components/Yueui/index.vue";
+export default {
+  components: {
+    Yueui,
+  },
+};
 </script>
 
 <style>

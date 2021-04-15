@@ -47,23 +47,41 @@ export default defineComponent({
 
     // 背景图高度
     const bgHeight = computed(() => props.height || 100);
+    const msg = head.getText();
     // 正标题
-    const bgTitle = computed(() => props.headine || head.getText().title);
+    const bgTitle = computed(() => props.headine || msg.title);
     // 副标题
-    const bgTitleEN = computed(() => props.subhead || head.getText().titleEn);
+    const bgTitleEN = computed(() => props.subhead || msg.titleEn);
 
     const data = reactive({
       bgimg: head.getImg(), //背景图片
       bghead: null, //当前dom
     });
 
+    // 监听切换网页
+    let docuTime;
+    document.addEventListener("visibilitychange", function () {
+      const isHidden = document.hidden;
+      if (isHidden) {
+        clearTimeout(docuTime);
+        document.title = "wait...";
+      } else {
+        document.title = "Wecome back!  星星Blog";
+        docuTime = setTimeout(() => {
+          document.title = "星星Blog";
+        }, 1500);
+      }
+    });
+
     // 跳转页面
     const methods = reactive({
-      onRoute: (e) => { // 跳转页面
+      // 跳转页面
+      onRoute: (e) => {
         router.push(e);
       },
-      onDown: () => { // 页面定位到背景图下
-        scrollTo(0, data.bghead.offsetHeight - 65);
+      // 页面定位到背景图下
+      onDown: () => {
+        scrollTo({ top: data.bghead.offsetHeight - 65, behavior: "smooth" });
       },
     });
 
@@ -82,7 +100,7 @@ export default defineComponent({
       ...toRefs(methods),
       ...toRefs(data),
     };
-  },
+  }
 });
 </script>
 
@@ -118,7 +136,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     .headerli {
-      color: rgb(197, 112, 112);
+      color: #ed2f6a;
       font-size: 19px;
       margin-right: 15px;
       padding-right: 10px;
