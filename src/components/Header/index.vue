@@ -11,47 +11,59 @@
             v-for="item in route"
             @click="onRoute(item.route)"
             :key="item.id"
-          >{{ item.name }}</li>
+          >
+            {{ item.name }}
+          </li>
         </ul>
       </div>
     </nav>
   </header>
 
-  <div class="bg" :style="{ height: `${bgHeight}vh` }">
-    <img :src="bgimg" alt="背景图" />
+  <div
+    class="bg"
+    ref="bghead"
+    :style="{
+      height: `${bgHeight}vh`,
+      background: `url(${bgimg}) center center / cover no-repeat`,
+    }"
+  >
     <div class="main">
       <h1>{{ bgTitle }}</h1>
       <p class="description">{{ bgTitleEN }}</p>
     </div>
+    <h4 class="scroll-down" @click="onDown"></h4>
   </div>
 </template>
 
 <script>
 import { defineComponent, computed, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
-import img from "@/utils/image"
+import head from "@/utils/head";
 
 export default defineComponent({
   props: ["height", "headine", "subhead"],
   setup(props, ctx) {
     const router = useRouter();
-    console.log(props);
-    // 背景图高度
-    const bgHeight = computed({
-      get: () => props.height || 80
-    });
 
-    // 定义变量
+    // 背景图高度
+    const bgHeight = computed(() => props.height || 100);
+    // 正标题
+    const bgTitle = computed(() => props.headine || head.getText().title);
+    // 副标题
+    const bgTitleEN = computed(() => props.subhead || head.getText().titleEn);
+
     const data = reactive({
-      bgTitle: computed({ get: () => props.headine || "人生来来往往，来日并不方长。" }),
-      bgTitleEN: computed({ get: () => props.subhead || "Life comes and goes, and the future is not long. " }),
-      bgimg: img.getImg()
+      bgimg: head.getImg(), //背景图片
+      bghead: null, //当前dom
     });
 
     // 跳转页面
     const methods = reactive({
-      onRoute: (e) => {
+      onRoute: (e) => { // 跳转页面
         router.push(e);
+      },
+      onDown: () => { // 页面定位到背景图下
+        scrollTo(0, data.bghead.offsetHeight - 65);
       },
     });
 
@@ -65,6 +77,8 @@ export default defineComponent({
     return {
       route,
       bgHeight,
+      bgTitle,
+      bgTitleEN,
       ...toRefs(methods),
       ...toRefs(data),
     };
@@ -116,11 +130,6 @@ export default defineComponent({
   width: 100%;
   overflow: hidden;
   position: relative;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
   .main {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -130,7 +139,7 @@ export default defineComponent({
     text-align: center;
     h1 {
       margin: 0 auto 1.8rem;
-      font-size: 2.5rem;
+      font-size: 2.7rem;
       color: rgb(255, 255, 255);
       font-family: Regular, cursive;
       transition: all 0.25s ease-in-out 0.04s;
@@ -139,7 +148,7 @@ export default defineComponent({
     }
     .description {
       margin: 1.8rem auto;
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       line-height: 1.3;
 
       color: rgb(255, 255, 255);
@@ -147,6 +156,45 @@ export default defineComponent({
       transition: all 0.25s ease-in-out 0.08s;
       transform: translateY(0px);
       opacity: 1;
+    }
+  }
+  .scroll-down {
+    position: absolute;
+    bottom: 70px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 1rem;
+      left: calc(50% - 1.5rem);
+      color: #fff;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 0.25rem solid #fff;
+      border-top: none;
+      border-left: none;
+      transform-origin: 50% 50%;
+      transform: rotate(45deg);
+      animation: arrow 2s infinite;
+    }
+
+    @-webkit-keyframes arrow {
+      0% {
+        opacity: 0;
+        -webkit-transform: translate(0, 0px) rotate(45deg);
+      }
+      50% {
+        opacity: 1;
+        -webkit-transform: translate(0, 10px) rotate(45deg);
+      }
+      100% {
+        opacity: 0;
+        -webkit-transform: translate(0, 20px) rotate(45deg);
+      }
     }
   }
 }

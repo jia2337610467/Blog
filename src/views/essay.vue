@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Jheader :height="50" headine="文章随笔" subhead="记录【表情】" />
+    <Jheader :height="60" headine="文章随笔" subhead="记录【表情】" />
     <div class="main">
       <div class="tab">标题</div>
       <Yabstract v-for="item in list" :key="item" />
