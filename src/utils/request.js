@@ -8,9 +8,9 @@ const service = axios.create({
 
 service.interceptors.request.use(
   (config) => {
-    if (store.getter.token) {
-      config.headers["Token"] = store.getter.token;
-    }
+    // if (store.getter.token) {
+    //   config.headers["Token"] = store.getter.token;
+    // }
     return config;
   },
   (error) => {
@@ -21,12 +21,9 @@ service.interceptors.request.use(
 service.interceptors.request.use(
   //通过判断状态码统一处理响应
   (response) => {
+    console.log(response);
     const res = response.data;
     if (res.code !== 200) {
-      Message.error({
-        message: res.message || "Error",
-        duration: 5 * 1000,
-      });
       // 50008: 非法令牌; 50012: 其他客户端已登入; 50014: 令牌过期;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
         //重新登录
