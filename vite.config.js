@@ -18,10 +18,10 @@ export default defineConfig({
 
     // 服务器代理
     proxy: {
-      https: true, //启用https
+      https: false, //启用https
       open: true, // @{boolean | string} 自动打开程序 | url的路径名
       "/api": {
-        target: "",
+        target: "http://192.168.1.31:8080",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

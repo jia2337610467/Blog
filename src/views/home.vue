@@ -4,26 +4,27 @@
     <main class="main">
       <div class="blog-list">
         <div class="abstract-wrapper">
-          <Yabstract v-for="item in list" :key="item" />
+          <Yabstract v-for="item in list" :key="item" :item="item" />
         </div>
       </div>
-    <div class="info-wrapper">
-      <div class="personal-info-wrapper">
-        <img
-          src="https://zyj_yida.gitee.io/source/img/ico/head.jpg"
-          alt="author-avatar"
-          class="personal-img" 
-        />
-        <h3 class="name">YUE</h3>
+      <div class="info-wrapper">
+        <div class="personal-info-wrapper">
+          <img
+            src="https://zyj_yida.gitee.io/source/img/ico/head.jpg"
+            alt="author-avatar"
+            class="personal-img"
+          />
+          <h3 class="name">YUE</h3>
+        </div>
       </div>
-    </div>
     </main>
   </div>
 </template>
 
 <script>
-import { reactive, toRefs, computed } from "vue";
+import { reactive, toRefs, computed, onMounted } from "vue";
 import { useStore } from "vuex";
+import { getList } from "@/network/api"
 import Yabstract from "comps/abstract/index.vue";
 import Jheader from "comps/Header/index.vue";
 export default {
@@ -32,8 +33,17 @@ export default {
     const store = useStore();
     // 响应数据
     const data = reactive({
-      list: [1, 2, 3, 4, 5, 6, 7, 8],
+      list: [],
     });
+
+    onMounted(() => {
+      getList().then(res => {
+        console.log(res);
+        if (res.code == 200) {
+          data.list = res.data;
+        }
+      })
+    })
 
     return {
       ...toRefs(data),
@@ -75,7 +85,7 @@ export default {
     box-sizing: border-box;
     padding: 0 15px;
     background: var(--background-color);
-    &:hover{
+    &:hover {
       box-shadow: var(--box-shadow-hover);
     }
     .personal-info-wrapper {

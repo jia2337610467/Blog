@@ -8,17 +8,40 @@
       }"
     ></div>
     <div class="abstract-content-wrap flyl" :style="{ marginLeft: '5%' }">
-      <div class="title">标题标题</div>
+      <div class="title">{{ data.name }}</div>
       <div class="iconfont reco-account">
-        <i> <span>作者：跃</span></i> <i> <span>时间: 2021/04/09</span></i>
-        <i> <span>标签: vue</span> </i>
+        <p>
+          作者：
+          <span>跃</span>
+        </p>
+
+        <p>
+          <span>时间: {{ time(data.createTime) }}</span>
+        </p>
+        
+        <p>
+          <span>标签: {{ data.sex }}</span>
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { ref } from 'vue';
+export default {
+  props: ["item"],
+  setup(props, ctx) {
+
+    const time = ref((e) => {
+      return new Date(e);
+    })
+    return {
+      time,
+      data: props.item
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
