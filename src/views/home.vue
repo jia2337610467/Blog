@@ -24,11 +24,7 @@
 <script>
 import { reactive, toRefs, computed, onMounted } from "vue";
 import { useStore } from "vuex";
-<<<<<<< HEAD
 import { getList } from "@/network/api"
-=======
-import { getData , getUser} from "@/network/api/index";
->>>>>>> 7dbd17e38107e920f554d55798eb98170b6f5dea
 import Yabstract from "comps/abstract/index.vue";
 import Jheader from "comps/Header/index.vue";
 export default {
@@ -41,7 +37,6 @@ export default {
     });
 
     onMounted(() => {
-<<<<<<< HEAD
       getList().then(res => {
         console.log(res);
         if (res.code == 200) {
@@ -49,16 +44,6 @@ export default {
         }
       })
     })
-=======
-      // 获取数据列表
-      // getData(2,{id:1}).then(res=>{
-      //   console.log(res);
-      // })
-      getUser({username:'yueyue', pwd:'mima123'}).then(res=>{
-        console.log(res);
-      })
-    });
->>>>>>> 7dbd17e38107e920f554d55798eb98170b6f5dea
 
     return {
       ...toRefs(data),
